@@ -1,0 +1,27 @@
+---
+version: '3.5'
+services:
+
+    zzz:
+        container_name: "${PROJECT_NAME}"
+        build:
+            context: .
+            target: xdebug
+        volumes:
+            - ./:/www/
+        env_file:
+            - .env
+        environment:
+            - MIGRATION=true
+        ports:
+            - "2001:2001"
+            - "2002:2002"
+        networks:
+            - local
+        hostname: docker.host.name
+        restart: always
+
+networks:
+    local:
+        external:
+            name: ${NETWORK}

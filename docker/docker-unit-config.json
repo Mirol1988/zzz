@@ -1,0 +1,42 @@
+{
+    "listeners": {
+        "*:2001": {
+            "pass": "routes"
+        }
+    },
+    "routes": [
+        {
+            "match": {
+                "uri":[
+                    "/assets/*",
+                    "/css/*",
+                    "/js/*",
+                    "/img/*",
+                    "/fonts/*",
+                    "/favicon.ico"
+                ]
+            },
+            "action": {
+                "share": "/www/web/"
+            }
+        },
+        {
+            "action": {
+                "pass": "applications/www"
+            }
+        }
+    ],
+    "applications": {
+        "www": {
+            "type": "php",
+            "root": "/www/web",
+            "script": "index.php",
+            "processes": {
+                "max": 100,
+                "spare": 3,
+                "idle_timeout": 20
+            }
+        }
+    },
+    "access_log": "/dev/stdout"
+}
